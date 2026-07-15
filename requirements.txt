@@ -1,11 +1,6 @@
 # Tools that run directly inside the Codespace (not inside the Airflow
 # Docker containers). Airflow's own dependencies live in the docker-compose
 # stack, not here -- see devcontainer.json for the rationale.
-
-dbt-core
-dbt-snowflake
-snowflake-connector-python
-streamlit
+apache-airflow-providers-snowflake
 requests
 pendulum
-apache-airflow-providers-snowflake
