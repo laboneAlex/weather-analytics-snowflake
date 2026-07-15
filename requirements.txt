@@ -8,3 +8,4 @@ snowflake-connector-python
 streamlit
 requests
 pendulum
+apache-airflow-providers-snowflake
