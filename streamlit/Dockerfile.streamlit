@@ -11,8 +11,7 @@ WORKDIR /app
 # 4. Install system dependencies required for compiling some python libraries
 RUN apt-get update && apt-get install -y \
     build-essential \
-    curl \
-    software-properties-common \
+    curl
     && rm -rf /var/lib/apt/lists/*
 
 # 5. Copy and install Streamlit app dependencies
