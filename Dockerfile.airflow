@@ -1,1 +1,32 @@
+# 1. Use the official Apache Airflow base image
+FROM apache/airflow:2.10.4-python3.11
 
+# 2. Copy and install standard Airflow requirements
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# 3. Switch to root (admin) user to set up dbt and file permissions
+USER root
+
+# 4. Create an isolated python virtual environment for dbt-snowflake
+# This prevents dbt packages from breaking Airflow core packages
+RUN python3 -m venv /opt/dbt-venv && \
+    /opt/dbt-venv/bin/pip install --no-cache-dir dbt-snowflake==1.9.0 && \
+    chown -R airflow:0 /opt/dbt-venv
+
+# 5. Set up the secure entrypoint helper script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# 6. Switch back to the safe, standard airflow user
+USER airflow
+ENV DBT_VENV_PATH=/opt/dbt-venv/bin
+
+# 7. Copy your local dbt transformations folder into the container
+COPY dbt /opt/airflow/dbt
+
+# 8. Set the working directory
+WORKDIR /opt/airflow
+
+# 9. Use our custom entrypoint to mount the Snowflake private key securely
+ENTRYPOINT ["/entrypoint.sh"]
