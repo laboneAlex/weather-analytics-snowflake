@@ -8,7 +8,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     # 🔐 BRIDGING CLOUD SECRETS: Brings your keys from Codespaces memory into the Airflow container
-    OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY}
+    AIRFLOW_VAR_OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY}
     SNOWFLAKE_PRIVATE_KEY: ${SNOWFLAKE_PRIVATE_KEY}
     SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: ${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}
     AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
