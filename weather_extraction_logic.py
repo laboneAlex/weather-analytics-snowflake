@@ -81,7 +81,7 @@ def build_weather_record(
     e.g. to pass on to the Snowflake insert, or just to print and inspect.
     """
     target_date = target_date_for_location(logical_date, location["timezone"])
-    start_ts = int(target_date.in_timezone("UTC").timestamp())
+    start_ts = int(pendulum.datetime(target_date.year, target_date.month, target_date.day, tz="UTC").timestamp())
 
     day_record = fetch_daily_record(location["lat"], location["lon"], start_ts, api_key)
 

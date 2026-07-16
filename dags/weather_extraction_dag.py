@@ -134,7 +134,7 @@ def _insert_raw_row(location: dict, target_date: pendulum.DateTime, start_ts: in
             "lon": location["lon"],
             "timezone": location["timezone"],
             "target_date": target_date.to_date_string(),
-            "start_param_utc": target_date.in_timezone("UTC").to_datetime_string(),
+            "start_param_utc": pendulum.from_timestamp(start_ts, tz="UTC").to_datetime_string(),
             "raw_payload": json.dumps(day_record),
         },
     )
